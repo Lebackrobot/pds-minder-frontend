@@ -1,5 +1,7 @@
-from flask import Blueprint, jsonify, redirect, request, session
+import hashlib
+from flask import Blueprint, request
 from api.crud.crud_usuario import crud_usuario
+
 
 signup_usuario_bp = Blueprint('signup_usuario', __name__)
 
@@ -19,7 +21,7 @@ def post_signup():
     return crud_usuario.create(usuario={
         'email': payload.get('email'),
         'username': payload.get('username'),
-        'password': payload.get('password'),
+        'password': hashlib.sha256(payload.get('password').encode('utf-8')).hexdigest(),
         'phone': payload.get('email'),
         'name': payload.get('name')
     })
