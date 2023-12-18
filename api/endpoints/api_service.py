@@ -13,9 +13,10 @@ def get_services():
 @service_bp.route('/', methods=['POST'])
 def post_service():
     payload = request.get_json()
-
+    print(payload.get('master'))
+    print(payload.get('name'))
     service = {
-       'master': int(payload.get('master')[1:-1]),
+       'master': payload.get('master'),
        'name': payload.get('name'),
        'phone': payload.get('phoneNumber'),
        'service_title': payload.get('serviceTitle'),
